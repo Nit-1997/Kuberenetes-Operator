@@ -1,4 +1,4 @@
-package v1
+package v1beta1
 
 import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
@@ -6,7 +6,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 const (
 	GroupName string = "nitin.github.io"
 	Kind      string = "TestResource"
-	Version   string = "v1"
+	Version   string = "v1beta1"
 	Plural    string = "testresources"
 	Singluar  string = "testresource"
 	ShortName string = "ts"
