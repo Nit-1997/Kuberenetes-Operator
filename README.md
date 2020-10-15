@@ -9,24 +9,25 @@ Basic kubernetes operator written in golang using client go library and code-gen
    - Make sure your directory structure resembles this
           
                  
-       somedir (src in this case)
-       ├── code-generator
-       └── myorg.com (github.com in my case)
-           └── controller-repo (nitin.github.io in this case) 
-               ├── go.mod
-               ├── go.sum
-               └── pkg
-                   └── apis
-                       └── customResourceName (testResource in this case)
-                           ├── register.go
-                           └── api-group-version(v1beta1 in my case)
-                               ├── doc.go
-                               ├── register.go
-                               └── types.go
+               somedir (src in this case)
+               ├── code-generator
+               └── myorg.com (github.com in my case)
+                   └── controller-repo (nitin.github.io in this case) 
+                       ├── go.mod
+                       ├── go.sum
+                       └── pkg
+                           └── apis
+                               └── customResourceName (testResource in this case)
+                                   ├── register.go
+                                   └── api-group-version(v1beta1 in my case)
+                                       ├── doc.go
+                                       ├── register.go
+                                       └── types.go
                                
   
    - Structure of doc.go for code generator
        
+        
           // +k8s:deepcopy-gen = package
           // +groupName = nitin.github.io
           
@@ -34,6 +35,7 @@ Basic kubernetes operator written in golang using client go library and code-gen
         **Make sure to give the same group name as in your CRD defination
     
    - Structure of register.go for code generator 
+         
            
              package v1beta1
              
@@ -69,9 +71,11 @@ Basic kubernetes operator written in golang using client go library and code-gen
              	return nil
              } 
      
-      **change the Resource name as per need , this is used to add your custom resource to scheme
+   **change the Resource name as per need , this is used to add your custom resource to scheme
       
    - Structure of types.go for code generator
+          
+          
           
              package v1beta1
              
@@ -115,10 +119,13 @@ Basic kubernetes operator written in golang using client go library and code-gen
              
              	Items []TestResource `json:"items"`
              }
-        **Make sure to give the same group name as in your CRD defination and define the structure of the schema as per your crd
+     
+   **Make sure to give the same group name as in your CRD defination and define the structure of the schema as per your crd
    
    - Now Your code is ready to be used by code generator
       
+          
+          
            RUN THIS COMMAND IN TERMINAL TO GENERATE CLIENTSET/INFORMERS/LISTERS
            
            $GOPATH/src/code-generator/generate-groups.sh all github.com/nitin.github.io/pkg/client github.com/nitin.github.io/pkg/apis "testResource:v1beta1" \
