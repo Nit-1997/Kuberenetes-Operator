@@ -5,7 +5,7 @@ Basic kubernetes operator written in golang using client go library and code-gen
    - https://stackoverflow.com/questions/60094368/kubernetes-client-code-generator-can-the-code-exist-only-locally-and-not-on-a-r
    - https://insujang.github.io/2020-02-13/programming-kubernetes-crd/#get-generated-go-code-with-code-generator
    - https://trstringer.com/extending-k8s-custom-controllers/
-
+   - https://itnext.io/how-to-create-a-kubernetes-custom-controller-using-client-go-f36a7a7536cc
 # Setup 
 
 **How to setup a basic controller using code-generator in 2020**
