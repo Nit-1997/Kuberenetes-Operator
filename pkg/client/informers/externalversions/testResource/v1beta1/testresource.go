@@ -19,7 +19,6 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
 	time "time"
 
 	testResourcev1beta1 "github.com/nitin.github.io/pkg/apis/testResource/v1beta1"
@@ -62,13 +61,13 @@ func NewFilteredTestResourceInformer(client versioned.Interface, namespace strin
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.TestResourceV1beta1().TestResources(namespace).List(context.TODO(), options)
+				return client.NitinV1beta1().TestResources(namespace).List(options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.TestResourceV1beta1().TestResources(namespace).Watch(context.TODO(), options)
+				return client.NitinV1beta1().TestResources(namespace).Watch(options)
 			},
 		},
 		&testResourcev1beta1.TestResource{},

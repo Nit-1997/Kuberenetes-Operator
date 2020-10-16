@@ -24,22 +24,22 @@ import (
 	rest "k8s.io/client-go/rest"
 )
 
-type TestResourceV1beta1Interface interface {
+type NitinV1beta1Interface interface {
 	RESTClient() rest.Interface
 	TestResourcesGetter
 }
 
-// TestResourceV1beta1Client is used to interact with features provided by the testResource group.
-type TestResourceV1beta1Client struct {
+// NitinV1beta1Client is used to interact with features provided by the nitin.github.io group.
+type NitinV1beta1Client struct {
 	restClient rest.Interface
 }
 
-func (c *TestResourceV1beta1Client) TestResources(namespace string) TestResourceInterface {
+func (c *NitinV1beta1Client) TestResources(namespace string) TestResourceInterface {
 	return newTestResources(c, namespace)
 }
 
-// NewForConfig creates a new TestResourceV1beta1Client for the given config.
-func NewForConfig(c *rest.Config) (*TestResourceV1beta1Client, error) {
+// NewForConfig creates a new NitinV1beta1Client for the given config.
+func NewForConfig(c *rest.Config) (*NitinV1beta1Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
@@ -48,12 +48,12 @@ func NewForConfig(c *rest.Config) (*TestResourceV1beta1Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &TestResourceV1beta1Client{client}, nil
+	return &NitinV1beta1Client{client}, nil
 }
 
-// NewForConfigOrDie creates a new TestResourceV1beta1Client for the given config and
+// NewForConfigOrDie creates a new NitinV1beta1Client for the given config and
 // panics if there is an error in the config.
-func NewForConfigOrDie(c *rest.Config) *TestResourceV1beta1Client {
+func NewForConfigOrDie(c *rest.Config) *NitinV1beta1Client {
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -61,9 +61,9 @@ func NewForConfigOrDie(c *rest.Config) *TestResourceV1beta1Client {
 	return client
 }
 
-// New creates a new TestResourceV1beta1Client for the given RESTClient.
-func New(c rest.Interface) *TestResourceV1beta1Client {
-	return &TestResourceV1beta1Client{c}
+// New creates a new NitinV1beta1Client for the given RESTClient.
+func New(c rest.Interface) *NitinV1beta1Client {
+	return &NitinV1beta1Client{c}
 }
 
 func setConfigDefaults(config *rest.Config) error {
@@ -81,7 +81,7 @@ func setConfigDefaults(config *rest.Config) error {
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *TestResourceV1beta1Client) RESTClient() rest.Interface {
+func (c *NitinV1beta1Client) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
 	}

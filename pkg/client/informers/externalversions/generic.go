@@ -52,9 +52,9 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=testResource, Version=v1beta1
+	// Group=nitin.github.io, Version=v1beta1
 	case v1beta1.SchemeGroupVersion.WithResource("testresources"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.TestResource().V1beta1().TestResources().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Nitin().V1beta1().TestResources().Informer()}, nil
 
 	}
 

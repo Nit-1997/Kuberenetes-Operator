@@ -32,13 +32,13 @@ import (
 
 // FakeTestResources implements TestResourceInterface
 type FakeTestResources struct {
-	Fake *FakeTestResourceV1beta1
+	Fake *FakeNitinV1beta1
 	ns   string
 }
 
-var testresourcesResource = schema.GroupVersionResource{Group: "testResource", Version: "v1beta1", Resource: "testresources"}
+var testresourcesResource = schema.GroupVersionResource{Group: "nitin.github.io", Version: "v1beta1", Resource: "testresources"}
 
-var testresourcesKind = schema.GroupVersionKind{Group: "testResource", Version: "v1beta1", Kind: "TestResource"}
+var testresourcesKind = schema.GroupVersionKind{Group: "nitin.github.io", Version: "v1beta1", Kind: "TestResource"}
 
 // Get takes name of the testResource, and returns the corresponding testResource object, and an error if there is any.
 func (c *FakeTestResources) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1beta1.TestResource, err error) {

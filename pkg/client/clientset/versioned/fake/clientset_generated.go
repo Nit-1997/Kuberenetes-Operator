@@ -20,8 +20,8 @@ package fake
 
 import (
 	clientset "github.com/nitin.github.io/pkg/client/clientset/versioned"
-	testresourcev1beta1 "github.com/nitin.github.io/pkg/client/clientset/versioned/typed/testresource/v1beta1"
-	faketestresourcev1beta1 "github.com/nitin.github.io/pkg/client/clientset/versioned/typed/testresource/v1beta1/fake"
+	nitinv1beta1 "github.com/nitin.github.io/pkg/client/clientset/versioned/typed/testresource/v1beta1"
+	fakenitinv1beta1 "github.com/nitin.github.io/pkg/client/clientset/versioned/typed/testresource/v1beta1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -76,7 +76,7 @@ func (c *Clientset) Tracker() testing.ObjectTracker {
 
 var _ clientset.Interface = &Clientset{}
 
-// TestResourceV1beta1 retrieves the TestResourceV1beta1Client
-func (c *Clientset) TestResourceV1beta1() testresourcev1beta1.TestResourceV1beta1Interface {
-	return &faketestresourcev1beta1.FakeTestResourceV1beta1{Fake: &c.Fake}
+// NitinV1beta1 retrieves the NitinV1beta1Client
+func (c *Clientset) NitinV1beta1() nitinv1beta1.NitinV1beta1Interface {
+	return &fakenitinv1beta1.FakeNitinV1beta1{Fake: &c.Fake}
 }

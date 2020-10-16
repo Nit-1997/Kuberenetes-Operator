@@ -19,7 +19,6 @@ limitations under the License.
 package v1beta1
 
 import (
-	"context"
 	"time"
 
 	v1beta1 "github.com/nitin.github.io/pkg/apis/testResource/v1beta1"
@@ -38,15 +37,15 @@ type TestResourcesGetter interface {
 
 // TestResourceInterface has methods to work with TestResource resources.
 type TestResourceInterface interface {
-	Create(ctx context.Context, testResource *v1beta1.TestResource, opts v1.CreateOptions) (*v1beta1.TestResource, error)
-	Update(ctx context.Context, testResource *v1beta1.TestResource, opts v1.UpdateOptions) (*v1beta1.TestResource, error)
-	UpdateStatus(ctx context.Context, testResource *v1beta1.TestResource, opts v1.UpdateOptions) (*v1beta1.TestResource, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1beta1.TestResource, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1beta1.TestResourceList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.TestResource, err error)
+	Create(testResource *v1beta1.TestResource, opts v1.CreateOptions) (*v1beta1.TestResource, error)
+	Update(testResource *v1beta1.TestResource, opts v1.UpdateOptions) (*v1beta1.TestResource, error)
+	UpdateStatus(testResource *v1beta1.TestResource, opts v1.UpdateOptions) (*v1beta1.TestResource, error)
+	Delete(name string, opts v1.DeleteOptions) error
+	DeleteCollection(opts v1.DeleteOptions, listOpts v1.ListOptions) error
+	Get(name string, opts v1.GetOptions) (*v1beta1.TestResource, error)
+	List(opts v1.ListOptions) (*v1beta1.TestResourceList, error)
+	Watch(opts v1.ListOptions) (watch.Interface, error)
+	Patch(name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.TestResource, err error)
 	TestResourceExpansion
 }
 
@@ -57,7 +56,7 @@ type testResources struct {
 }
 
 // newTestResources returns a TestResources
-func newTestResources(c *TestResourceV1beta1Client, namespace string) *testResources {
+func newTestResources(c *NitinV1beta1Client, namespace string) *testResources {
 	return &testResources{
 		client: c.RESTClient(),
 		ns:     namespace,
@@ -65,20 +64,20 @@ func newTestResources(c *TestResourceV1beta1Client, namespace string) *testResou
 }
 
 // Get takes name of the testResource, and returns the corresponding testResource object, and an error if there is any.
-func (c *testResources) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1beta1.TestResource, err error) {
+func (c *testResources) Get(name string, options v1.GetOptions) (result *v1beta1.TestResource, err error) {
 	result = &v1beta1.TestResource{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("testresources").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of TestResources that match those selectors.
-func (c *testResources) List(ctx context.Context, opts v1.ListOptions) (result *v1beta1.TestResourceList, err error) {
+func (c *testResources) List(opts v1.ListOptions) (result *v1beta1.TestResourceList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -89,13 +88,13 @@ func (c *testResources) List(ctx context.Context, opts v1.ListOptions) (result *
 		Resource("testresources").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested testResources.
-func (c *testResources) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *testResources) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -106,24 +105,24 @@ func (c *testResources) Watch(ctx context.Context, opts v1.ListOptions) (watch.I
 		Resource("testresources").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch(ctx)
+		Watch()
 }
 
 // Create takes the representation of a testResource and creates it.  Returns the server's representation of the testResource, and an error, if there is any.
-func (c *testResources) Create(ctx context.Context, testResource *v1beta1.TestResource, opts v1.CreateOptions) (result *v1beta1.TestResource, err error) {
+func (c *testResources) Create(testResource *v1beta1.TestResource, opts v1.CreateOptions) (result *v1beta1.TestResource, err error) {
 	result = &v1beta1.TestResource{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("testresources").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(testResource).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Update takes the representation of a testResource and updates it. Returns the server's representation of the testResource, and an error, if there is any.
-func (c *testResources) Update(ctx context.Context, testResource *v1beta1.TestResource, opts v1.UpdateOptions) (result *v1beta1.TestResource, err error) {
+func (c *testResources) Update(testResource *v1beta1.TestResource, opts v1.UpdateOptions) (result *v1beta1.TestResource, err error) {
 	result = &v1beta1.TestResource{}
 	err = c.client.Put().
 		Namespace(c.ns).
@@ -131,14 +130,14 @@ func (c *testResources) Update(ctx context.Context, testResource *v1beta1.TestRe
 		Name(testResource.Name).
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(testResource).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *testResources) UpdateStatus(ctx context.Context, testResource *v1beta1.TestResource, opts v1.UpdateOptions) (result *v1beta1.TestResource, err error) {
+func (c *testResources) UpdateStatus(testResource *v1beta1.TestResource, opts v1.UpdateOptions) (result *v1beta1.TestResource, err error) {
 	result = &v1beta1.TestResource{}
 	err = c.client.Put().
 		Namespace(c.ns).
@@ -147,24 +146,24 @@ func (c *testResources) UpdateStatus(ctx context.Context, testResource *v1beta1.
 		SubResource("status").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(testResource).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Delete takes name of the testResource and deletes it. Returns an error if one occurs.
-func (c *testResources) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *testResources) Delete(name string, opts v1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("testresources").
 		Name(name).
 		Body(&opts).
-		Do(ctx).
+		Do().
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *testResources) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+func (c *testResources) DeleteCollection(opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	var timeout time.Duration
 	if listOpts.TimeoutSeconds != nil {
 		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
@@ -175,12 +174,12 @@ func (c *testResources) DeleteCollection(ctx context.Context, opts v1.DeleteOpti
 		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(&opts).
-		Do(ctx).
+		Do().
 		Error()
 }
 
 // Patch applies the patch and returns the patched testResource.
-func (c *testResources) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.TestResource, err error) {
+func (c *testResources) Patch(name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.TestResource, err error) {
 	result = &v1beta1.TestResource{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
@@ -189,7 +188,7 @@ func (c *testResources) Patch(ctx context.Context, name string, pt types.PatchTy
 		SubResource(subresources...).
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(data).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
